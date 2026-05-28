@@ -1,4 +1,33 @@
 
+/* === Mig's Exploit Host === */
+
+html, body {
+    background-image: linear-gradient(rgba(0,0,0,0.68), rgba(0,0,0,0.68)), url('macba.jpg') !important;
+    background-size: cover !important;
+    background-position: center 30% !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+}
+
+#site-title {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: #FFFF00;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #000, 0 0 24px rgba(255, 255, 0, 0.35);
+    margin: 0.4rem 0 0 0;
+    line-height: 1.1;
+}
+
+#site-subtitle {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: #777;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin: 0.3rem 0 0 0;
+}
 
 .j {
     font-size: 15px;
