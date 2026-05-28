@@ -3,13 +3,15 @@ const payload_map = [
     {
         displayTitle: 'Shadowmount+FTP',
         description: '',
-        info: 'shadowmountplus → kstuff → ftpsrv',
+        info: 'elfldr → shadowmountplus → kstuff → ftpsrv',
         sequence: [
-            { fileName: 'shadowmountplus.elf', displayTitle: 'Shadowmount+' },
+            { fileName: 'elfldr.elf', displayTitle: 'ELF Loader' },
+            { delay: 3000 },
+            { fileName: 'shadowmountplus.elf', displayTitle: 'Shadowmount+', loader: 'john-tornblom-elfldr' },
             { delay: 2000 },
-            { fileName: 'kstuff.elf', displayTitle: 'kstuff' },
+            { fileName: 'kstuff.elf', displayTitle: 'kstuff', loader: 'john-tornblom-elfldr' },
             { delay: 2000 },
-            { fileName: 'ftpsrv-ps5.elf', displayTitle: 'FTP Server' },
+            { fileName: 'ftpsrv-ps5.elf', displayTitle: 'FTP Server', loader: 'john-tornblom-elfldr' },
         ],
         author: '',
         version: '1.0'
