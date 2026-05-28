@@ -29,7 +29,6 @@ function onload_setup() {
     let menu_overlay = document.getElementById("menu-overlay");
     let menu = document.getElementById("menu-bar-wrapper");
 
-    // Siempre establece "psfree" como el tipo de exploit
     localStorage.setItem("wk_exploit_type", "psfree");
     document.getElementById("wk-exploit-psfree").checked = true;
 
@@ -64,7 +63,6 @@ function onload_setup() {
     });
 }
 
-// Función para actualizar el contenido del div info
 async function log(message) {
     console.log(message);
     const infoBox = document.getElementById('info');
@@ -73,7 +71,6 @@ async function log(message) {
     }
 }
 
-// Modificar la función create_payload_buttons para agregar eventos
 function create_payload_buttons() {
     window.local_payload_queue = [];
     for (let i = 0; i < payload_map.length; i++) {
@@ -83,51 +80,14 @@ function create_payload_buttons() {
         btn.tabIndex = "0";
         btn.setAttribute('data-info', payload_map[i].info);
 
-        // Función que se ejecuta cuando se hace clic en el botón
         btn.onclick = async () => {
-            // Si es el payload-0 (etaHEN 2.5b) O el payload-1 (etaHEN 2.2B)
-            if (i === 0 || i === 1) {
-                // Crear payload para elfldr.elf
-                const elfldrPayload = {
-                    displayTitle: 'ELF Loader',
-                    description: '',
-                    info: 'Uses port 9021. Persistent network elf loader',
-                    fileName: 'elfldr.elf',
-                    author: 'john-tornblom',
-                    source: 'https://github.com/ps5-payload-dev/elfldr/releases',
-                    version: '0.14',
-                };
-                
-                // Insertar elfldr AL PRINCIPIO de la cola
-                window.local_payload_queue.unshift(elfldrPayload);
-                
-                // Crear una versión MODIFICADA del payload etaHEN
-                // que tenga el campo loader para que vaya al puerto 9021
-                const etahenModified = {
-                    ...payload_map[i],  // Copiar todas las propiedades del payload original
-                    loader: "john-tornblom-elfldr"  // Añadir esto para que vaya al puerto 9021
-                };
-                
-                // Esperar 3 segundos y luego agregar etaHEN MODIFICADO
-                setTimeout(() => {
-                    window.local_payload_queue.push(etahenModified);
-                }, 3000);
-                
+            if (payload_map[i].sequence) {
+                for (const entry of payload_map[i].sequence) {
+                    window.local_payload_queue.push(entry);
+                }
             } else {
-                // Para otros payloads, agregar normalmente
                 window.local_payload_queue.push(payload_map[i]);
             }
-            
-            // Esperar antes de mostrar el popup
-            setTimeout(() => {
-                if (i === 0) { // Popup para el payload-0 (etaHEN 2.5b)
-                    const mensaje = "\n🟡​ Loading etaHEN 2.5b ...\n Click 🆗​ when the notification disappears 🎮 ";
-                    alert(mensaje);
-                } else if (i === 1) { // Popup para el payload-1 (etaHEN 2.2B)
-                    const mensaje = "\n🟡​ Loading etaHEN 2.2B ...\n Click 🆗​ when the notification disappears 🎮 ";
-                    alert(mensaje);
-                }
-            }, 7000); // 7000 milisegundos = 7 segundos
         };
 
         let btn_child = document.createElement("p");
